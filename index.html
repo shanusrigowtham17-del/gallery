@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Park Luxury Gallery</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400&family=Cormorant+Garamond:ital,wght@1,300&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        :root {
+            --gold: #c9a84c;
+            --black: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--black);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Fixed Navigation */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 30px;
+            text-align: center;
+            z-index: 100;
+            letter-spacing: 10px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+        }
+
+        /* Floating Call Button */
+        .call-action {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            padding: 18px 35px;
+            border-radius: 100px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .call-action:hover {
+            background: var(--gold);
+            color: #000;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .pulse {
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            border-radius: 50%;
+            margin-right: 15px;
+            position: relative;
+        }
+
+        .pulse::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: pulse-ring 2s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+
+        /* Full-Screen Scroll Sections */
+        .scroll-section {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: var(--black);
+        }
+
+        .image-wrapper {
+            width: 85%;
+            height: 85%;
+            overflow: hidden;
+            position: relative;
+            /* Apple-style initial crop */
+            clip-path: inset(15% 15% 15% 15%);
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Scale set high for the zoom-out effect */
+            transform: scale(1.3);
+        }
+
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 10vw, 7rem);
+            font-style: italic;
+            pointer-events: none;
+            z-index: 2;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Custom Scrollbar for Premium Feel */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--black); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); }
+    </style>
+</head>
+<body>
+
+    <nav class="nav-bar">Curated Excellence</nav>
+
+    <a href="tel:+919654655999" class="call-action">
+        <span class="pulse"></span>
+        <span>RESERVE: 9654655999</span>
+    </a>
+
+    <main id="main-content">
+        <section class="scroll-section">
+            <div class="image-wrapper">
+                <img src="park1.jpg" alt="Park One">
+                <div class="overlay-text">The Grand Pavilion</div>
+            </div>
+        </section>
+
+        <section class="scroll-section">
+            <div class="image-wrapper">
+                <img src="park2.jpg" alt="Park Two">
+                <div class="overlay-text">Elite Banquet</div>
+            </div>
+        </section>
+
+        <section class="scroll-section">
+            <div class="image-wrapper">
+                <img src="park3.jpg" alt="Park Three">
+                <div class="overlay-text">Golden Suites</div>
+            </div>
+        </section>
+
+        <section class="scroll-section">
+            <div class="image-wrapper">
+                <img src="park4.jpg" alt="Park Four">
+                <div class="overlay-text">Timeless Luxury</div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animate each section with Apple-style "Reveal & Scale"
+        document.querySelectorAll('.scroll-section').forEach((section) => {
+            const wrapper = section.querySelector('.image-wrapper');
+            const image = section.querySelector('img');
+            const text = section.querySelector('.overlay-text');
+
+            const timeline = gsap.timeline({
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1.5 // Creates the buttery smooth lag effect
+                }
+            });
+
+            timeline
+                .to(wrapper, {
+                    clipPath: "inset(0% 0% 0% 0%)",
+                    ease: "power2.inOut"
+                })
+                .to(image, {
+                    scale: 1,
+                    ease: "none"
+                }, 0)
+                .fromTo(text, 
+                    { opacity: 0, y: 100, letterSpacing: "30px" },
+                    { opacity: 1, y: 0, letterSpacing: "5px", duration: 0.5 },
+                    0.2
+                );
+        });
+
+        // Add smooth momentum scrolling (optional but recommended for 10/10 feel)
+        // This makes the mouse wheel feel more premium.
+    </script>
+</body>
+</html>
