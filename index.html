@@ -3,77 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Park Luxury Gallery</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400&family=Cormorant+Garamond:ital,wght@1,300&display=swap" rel="stylesheet">
+    <title>SKY PARK | The Pinnacle of Luxury</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
 
     <style>
         :root {
-            /* Metallic Gold Gradient Definition */
-            --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-            --black: #050505;
+            /* Metallic Champagne Gold */
+            --gold: linear-gradient(180deg, #fdf5e6 0%, #d4af37 50%, #8e6d13 100%);
+            --accent-gold: #d4af37;
+            --deep-obsidian: #050505;
+            --off-white: #fafafa;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: var(--black);
-            color: #fff;
-            font-family: 'Inter', sans-serif;
+            background-color: var(--deep-obsidian);
+            color: var(--off-white);
+            font-family: 'Montserrat', sans-serif;
             overflow-x: hidden;
         }
 
-        /* Fixed Navigation */
+        /* Sophisticated Navigation */
         .nav-bar {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 20px;
-            text-align: center;
-            z-index: 100;
-            letter-spacing: 6px;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            padding: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
         }
 
-        /* Floating Gold Call Button */
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 15px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 200;
+            color: var(--off-white);
+        }
+
+        /* Apple-Style CTA */
         .call-action {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 50px;
+            right: 50px;
             z-index: 1000;
-            display: flex;
-            align-items: center;
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            border: 1px solid #bf953f;
-            padding: 15px 25px;
-            border-radius: 100px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            padding: 20px 40px;
             color: #fff;
             text-decoration: none;
-            transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-            font-size: 0.85rem;
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            transition: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .pulse {
-            width: 8px; height: 8px;
-            background: #fcf6ba;
-            border-radius: 50%;
-            margin-right: 12px;
-            box-shadow: 0 0 10px #bf953f;
-            animation: pulse-ring 2s infinite;
+        .call-action:hover {
+            background: var(--accent-gold);
+            color: var(--deep-obsidian);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        @keyframes pulse-ring {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(3); opacity: 0; }
-        }
-
-        /* Full-Screen Scroll Sections */
+        /* Hero / Scroll Sections */
         .scroll-section {
-            height: 100vh;
+            height: 120vh; /* Extra height for smoother scroll transitions */
             width: 100%;
             display: flex;
             justify-content: center;
@@ -81,131 +86,210 @@
             position: relative;
         }
 
-        .image-wrapper {
+        .container {
             width: 85%;
-            height: 80%;
-            overflow: hidden;
+            height: 80vh;
             position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
             clip-path: inset(15% 15% 15% 15%);
+            will-change: clip-path;
         }
 
         .image-wrapper img {
             width: 100%;
-            height: 100%;
+            height: 120%;
             object-fit: cover;
+            filter: brightness(0.6) contrast(1.1);
             transform: scale(1.4);
         }
 
-        /* Metallic Gold Text Styling */
+        /* Deep Golden Text */
         .overlay-text {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2rem, 10vw, 6rem);
-            font-style: italic;
-            z-index: 2;
+            z-index: 5;
             text-align: center;
-            width: 90%;
-            background: var(--gold-gradient);
+            pointer-events: none;
+        }
+
+        .overlay-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 12vw, 10rem);
+            font-weight: 400;
+            font-style: italic;
+            background: var(--gold);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+            margin: 0;
+            padding: 0;
+            line-height: 0.8;
+            letter-spacing: -2px;
         }
 
-        /* Mobile Optimization */
+        .sub-headline {
+            font-size: 0.7rem;
+            letter-spacing: 12px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            display: block;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        /* Section Numbers */
+        .section-index {
+            position: absolute;
+            left: 0;
+            top: 20%;
+            font-size: 10rem;
+            font-family: 'Playfair Display', serif;
+            opacity: 0.05;
+            color: var(--accent-gold);
+            z-index: 1;
+        }
+
+        /* Scroll Hint */
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.6rem;
+            letter-spacing: 4px;
+            opacity: 0.4;
+        }
+
         @media (max-width: 768px) {
-            .image-wrapper {
-                width: 95%;
-                height: 70%;
-                clip-path: inset(10% 5% 10% 5%); /* Less aggressive crop on mobile */
-            }
-            .call-action {
-                left: 20px;
-                right: 20px;
-                bottom: 20px;
-                justify-content: center;
-                padding: 12px;
-            }
-            .nav-bar { letter-spacing: 3px; }
-            .overlay-text { 
-                font-size: 2.8rem; 
-                line-height: 1.1;
-            }
+            .image-wrapper { clip-path: inset(10% 5% 10% 5%); }
+            .nav-bar { padding: 30px; }
+            .logo { letter-spacing: 8px; }
+            .call-action { bottom: 0; right: 0; width: 100%; text-align: center; }
         }
-
-        ::-webkit-scrollbar { width: 3px; }
-        ::-webkit-scrollbar-thumb { background: #bf953f; }
     </style>
 </head>
 <body>
 
-    <nav class="nav-bar">Park Premium Collection</nav>
+    <nav class="nav-bar">
+        <div class="logo">SKY PARK</div>
+        <div style="font-size: 0.6rem; letter-spacing: 2px;">DELHI | DUBAI | LONDON</div>
+    </nav>
 
-    <a href="tel:+919654655999" class="call-action">
-        <span class="pulse"></span>
-        <span>CALL TO BOOK: 9654655999</span>
-    </a>
+    <a href="tel:+919654655999" class="call-action">Request Concierge</a>
 
-    <main id="main-content">
+    <main>
         <section class="scroll-section">
-            <div class="image-wrapper">
-                <img src="park1.jpg" alt="Park 1">
-                <div class="overlay-text">The Grand Pavilion</div>
+            <div class="container">
+                <span class="section-index">01</span>
+                <div class="image-wrapper">
+                    <img src="park1.jpg" alt="Sky Park Pavilion">
+                </div>
+                <div class="overlay-text">
+                    <span class="sub-headline">The Arrival</span>
+                    <h2>Celestial Hall</h2>
+                </div>
+            </div>
+            <div class="scroll-hint">SCROLL TO DISCOVER</div>
+        </section>
+
+        <section class="scroll-section">
+            <div class="container">
+                <span class="section-index">02</span>
+                <div class="image-wrapper">
+                    <img src="park2.jpg" alt="Sky Park Banquet">
+                </div>
+                <div class="overlay-text">
+                    <span class="sub-headline">Exquisite Dining</span>
+                    <h2>Golden Aura</h2>
+                </div>
             </div>
         </section>
+
         <section class="scroll-section">
-            <div class="image-wrapper">
-                <img src="park2.jpg" alt="Park 2">
-                <div class="overlay-text">Elite Banquet</div>
+            <div class="container">
+                <span class="section-index">03</span>
+                <div class="image-wrapper">
+                    <img src="park3.jpg" alt="Sky Park Suites">
+                </div>
+                <div class="overlay-text">
+                    <span class="sub-headline">The Sanctuary</span>
+                    <h2>Cloud Suites</h2>
+                </div>
             </div>
         </section>
+
         <section class="scroll-section">
-            <div class="image-wrapper">
-                <img src="park3.jpg" alt="Park 3">
-                <div class="overlay-text">Golden Suites</div>
-            </div>
-        </section>
-        <section class="scroll-section">
-            <div class="image-wrapper">
-                <img src="park.jpg" alt="Park 4">
-                <div class="overlay-text">Timeless Luxury</div>
+            <div class="container">
+                <span class="section-index">04</span>
+                <div class="image-wrapper">
+                    <img src="park.jpg" alt="Sky Park Legacy">
+                </div>
+                <div class="overlay-text">
+                    <span class="sub-headline">Eternal Beauty</span>
+                    <h2>Infinite Sky</h2>
+                </div>
             </div>
         </section>
     </main>
 
     <script>
+        // 1. Smooth Scroll Engine
+        const lenis = new Lenis({
+            duration: 1.8,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            orientation: 'vertical',
+            smoothWheel: true,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // 2. Animation Logic
         gsap.registerPlugin(ScrollTrigger);
 
         document.querySelectorAll('.scroll-section').forEach((section) => {
             const wrapper = section.querySelector('.image-wrapper');
-            const image = section.querySelector('img');
+            const img = section.querySelector('img');
             const text = section.querySelector('.overlay-text');
+            const index = section.querySelector('.section-index');
 
             const timeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: section,
                     start: "top bottom",
                     end: "bottom top",
-                    scrub: 1.2
+                    scrub: 1
                 }
             });
 
             timeline
                 .to(wrapper, {
                     clipPath: "inset(0% 0% 0% 0%)",
-                    ease: "power2.inOut"
+                    ease: "power1.inOut"
                 })
-                .to(image, {
+                .to(img, {
                     scale: 1,
+                    y: -100, // Parallax depth
                     ease: "none"
                 }, 0)
                 .fromTo(text, 
-                    { opacity: 0, scale: 0.8, letterSpacing: "20px" },
-                    { opacity: 1, scale: 1, letterSpacing: "2px", duration: 0.6 },
+                    { y: 150, opacity: 0 }, 
+                    { y: -50, opacity: 1, ease: "power2.out" }, 
                     0.2
-                );
+                )
+                .to(index, {
+                    y: -200,
+                    ease: "none"
+                }, 0);
         });
     </script>
 </body>
