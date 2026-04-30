@@ -103,7 +103,9 @@
             will-change: clip-path;
         }
 
-        .image-wrapper img {
+        /* Updated to target both images and videos */
+        .image-wrapper img,
+        .image-wrapper video {
             width: 100%;
             height: 120%;
             object-fit: cover;
@@ -236,6 +238,24 @@
                 </div>
             </div>
         </section>
+
+        <!-- New Video Section Added Here -->
+        <section class="scroll-section">
+            <div class="container">
+                <span class="section-index">05</span>
+                <div class="image-wrapper">
+                    <!-- Added autoplay, muted, loop, and playsinline for smooth background play -->
+                    <video autoplay muted loop playsinline>
+                        <source src="parks.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="overlay-text">
+                    <span class="sub-headline">The Experience</span>
+                    <h2>Living Cinematic</h2>
+                </div>
+            </div>
+        </section>
     </main>
 
     <script>
@@ -258,7 +278,8 @@
 
         document.querySelectorAll('.scroll-section').forEach((section) => {
             const wrapper = section.querySelector('.image-wrapper');
-            const img = section.querySelector('img');
+            // UPDATED: Now queries for either an image or a video element
+            const media = section.querySelector('img, video'); 
             const text = section.querySelector('.overlay-text');
             const index = section.querySelector('.section-index');
 
@@ -276,7 +297,7 @@
                     clipPath: "inset(0% 0% 0% 0%)",
                     ease: "power1.inOut"
                 })
-                .to(img, {
+                .to(media, { // Uses the new 'media' variable
                     scale: 1,
                     y: -100, // Parallax depth
                     ease: "none"
